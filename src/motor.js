@@ -1,36 +1,28 @@
 let intervalId, updateTimeCallback;
-let hour = 0;
-let minute = 0;
-let second = 0;
-
-export function updateTime() {
-	const now = new Date();
-	second = now.getSeconds() + now.getMilliseconds() / 1000;
-	minute = now.getMinutes() + second / 60;
-	hour = now.getHours() + minute / 60;
-}
 
 function tick() {
 	intervalId = requestAnimationFrame(() => {
-		updateTime();
+		callEventListener();
 		tick();
-		if (typeof updateTimeCallback === 'function') {
-			updateTimeCallback();
-		}
 	});
+}
+
+function callEventListener() {
+	if (typeof updateTimeCallback === 'function') {
+		updateTimeCallback(new Date);
+	}
 }
 
 export function ontick(eventListener) {
 	if (typeof eventListener === 'function') {
 		updateTimeCallback = eventListener;
-	}
-	else {
-		throw new Error('motor event listener must be a function');
+	} else {
+		updateTimeCallback = undefined;
 	}
 }
 
 export function start() {
-	updateTime();
+	callEventListener();
 	tick();
 }
 
@@ -38,6 +30,3 @@ export function stop() {
 	clearInterval(intervalId);
 }
 
-export const getHour = () => hour;
-export const getMinute = () => minute;
-export const getSecond = () => second;

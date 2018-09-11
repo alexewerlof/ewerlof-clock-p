@@ -1,12 +1,11 @@
 import { h, Component } from 'preact';
 import { computeXY, sec2deg, perc } from '../util';
-import * as motor from '../motor';
 import { color } from '../settings';
 
 export default class SecondHand extends Component {
 
-    render({ cx, cy, r, filter }) {
-        const rotation = sec2deg(motor.getSecond());
+    render({ second, cx, cy, r, filter }) {
+        const rotation = sec2deg(second);
         const start = computeXY(cx, cy, perc(r, -20), rotation);
         const end = computeXY(cx, cy, perc(r, 95), rotation);
         return (

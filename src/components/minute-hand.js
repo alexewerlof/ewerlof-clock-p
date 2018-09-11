@@ -1,12 +1,11 @@
 import { h, Component } from 'preact';
 import { computeXY, min2deg, perc } from '../util';
-import * as motor from '../motor';
 import { color } from '../settings';
 
 export default class MinuteHand extends Component {
 
-    render({ cx, cy, r, filter }) {
-        const rotation = min2deg(motor.getMinute());
+    render({ minute, cx, cy, r, filter }) {
+        const rotation = min2deg(minute);
         const start = computeXY(cx, cy, perc(r, -20), rotation);
         const end = computeXY(cx, cy, perc(r, 95), rotation);
         return (

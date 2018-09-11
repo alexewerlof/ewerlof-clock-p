@@ -10,13 +10,23 @@ import { color } from '../settings';
 const margin = 20;
 
 export default class Clock extends Component {
-    componentWillMount() {
-        motor.start()
+    constructor() {
+        super();
+        this.state.now = new Date
+        motor.ontick(() => {
+            this.setState({ now: new Date });
+        })
+    }
+    componentDidMount() {
+        motor.start();
     }
     componentWillUnmount() {
-        motor.stop()
+        motor.stop();
     }
-    render() {
+    render(props, { now }) {
+        const second = now.getSeconds() + now.getMilliseconds() / 1000;
+        const minute = now.getMinutes() + second / 60;
+        const hour = now.getHours() + minute / 60;
         const width = document.body.clientWidth - margin * 2;
         const height = document.body.clientHeight - margin * 2;
         const cx = width / 2;
@@ -39,9 +49,9 @@ export default class Clock extends Component {
                     </filter>
                 </defs>
                 <Face cx={cx} cy={cy} r={r} />
-                <HourHand cx={cx} cy={cy} r={r} filter='url(#hourShadow)' />
-                <MinuteHand cx={cx} cy={cy} r={r} filter='url(#minuteShadow)' />
-                <SecondHand cx={cx} cy={cy} r={r} filter='url(#secondShadow)' />
+                <HourHand hour={hour} cx={cx} cy={cy} r={r} filter='url(#hourShadow)' />
+                <MinuteHand minute={minute} cx={cx} cy={cy} r={r} filter='url(#minuteShadow)' />
+                <SecondHand second={second} cx={cx} cy={cy} r={r} filter='url(#secondShadow)' />
             </svg>
         );
     }
