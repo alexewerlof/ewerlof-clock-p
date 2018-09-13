@@ -1,13 +1,9 @@
 import { h, Component } from 'preact';
 import Indicator from './indicator';
 import { color } from '../settings';
-import { min2deg, perc } from '../util';
+import { min2deg, perc, diffProps } from '../util';
 
 export default class Face extends Component {
-
-    shouldComponentUpdate() {
-        return false;
-    }
 
     render({ cx, cy, r }) {
         const indicators = [];

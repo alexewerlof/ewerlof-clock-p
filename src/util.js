@@ -23,3 +23,7 @@ export function perc(x, percentage, natural = false) {
 	const ret = x * percentage / 100;
 	return natural ? Math.round(ret) : ret;
 }
+
+export function diffProps(currentProps, nextProps, ...keysArr) {
+	return keysArr.some(key => currentProps[key] != nextProps[key])
+}

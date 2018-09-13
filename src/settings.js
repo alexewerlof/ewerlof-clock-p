@@ -7,5 +7,5 @@ export const color = {
 	minute: gray(60),
 	second: rgb(213, 74, 62),
 	indicator: gray(60),
-	shadow: gray(30)
+	shadow: gray(50)
 };
