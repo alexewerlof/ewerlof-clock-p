@@ -6,7 +6,6 @@ import HourHand from './hour-hand';
 import MinuteHand from './minute-hand';
 import SecondHand from './second-hand';
 import { perc } from '../util';
-import { color } from '../settings';
 
 export default class Clock extends Component {
     constructor() {
@@ -30,7 +29,7 @@ export default class Clock extends Component {
         motor.start();
     }
     componentWillUnmount() {
-        window.removeEventListener('resize', this.onresize)
+        window.removeEventListener('resize', this.onResize)
         motor.stop();
     }
     render({ shadow = false, continuous = true }, { now, clientWidth, clientHeight }) {
