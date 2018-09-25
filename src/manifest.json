@@ -1,6 +1,6 @@
 {
   "name": "ewerlof-clock-p",
-  "short_name": "ewerlof-clock-p",
+  "short_name": "ewer-clk",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

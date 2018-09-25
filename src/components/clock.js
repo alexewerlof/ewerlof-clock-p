@@ -11,8 +11,13 @@ export default class Clock extends Component {
     constructor() {
         super();
         this.state.now = new Date
-        this.state.clientWidth = document.body.clientWidth
-        this.state.clientHeight = document.body.clientHeight
+        if (typeof document !== "undefined") {
+            this.state.clientWidth = document.body.clientWidth
+            this.state.clientHeight = document.body.clientHeight
+        } else {
+            this.state.clientWidth = 100
+            this.state.clientHeight = 100
+        }
         this.onResize = this.onResize.bind(this)
         motor.ontick(() => {
             this.setState({ now: new Date });
@@ -25,11 +30,16 @@ export default class Clock extends Component {
         });
     }
     componentDidMount() {
-        window.addEventListener('resize', this.onResize)
+        this.onResize()
+        if (typeof window !== "undefined") {
+            window.addEventListener('resize', this.onResize)
+        }
         motor.start();
     }
     componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize)
+        if (typeof window !== "undefined") {
+            window.removeEventListener('resize', this.onResize)
+        }
         motor.stop();
     }
     render({ shadow = false, continuous = true }, { now, clientWidth, clientHeight }) {
